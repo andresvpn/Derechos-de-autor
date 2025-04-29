@@ -1,4 +1,4 @@
-      <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -37,19 +37,11 @@
     ul { padding-left: 1.2rem; }
 
     .btn-download {
-      position: fixed;
-      top: 20px;
-      right: 20px;
+      margin: 30px auto 0;
       display: flex;
-      flex-direction: column;
-      gap: 10px;
-      z-index: 9999;
-    }
-
-    .btn-download .btn {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      justify-content: center;
+      gap: 15px;
+      max-width: 950px;
     }
 
     .no-print {
@@ -58,15 +50,6 @@
   </style>
 </head>
 <body>
-
-  <div class="btn-download no-print">
-    <button class="btn btn-primary" onclick="downloadImage()">
-      <i class="bi bi-image"></i> Descargar Imagen
-    </button>
-    <button class="btn btn-danger" onclick="downloadPDF()">
-      <i class="bi bi-file-earmark-pdf"></i> Descargar PDF
-    </button>
-  </div>
 
   <div class="container-doc" id="documento">
     <h1 class="text-center">Declaración Legal de Derechos de Autor</h1>
@@ -106,6 +89,16 @@
 
     <hr>
     <p class="text-center text-muted">© 2025 MICHAEL ANDRÉS CARVAJAL PROZCO. Todos los derechos reservados.</p>
+  </div>
+
+  <!-- Botones de descarga debajo del documento -->
+  <div class="btn-download no-print">
+    <button class="btn btn-primary" onclick="downloadImage()">
+      <i class="bi bi-image"></i> Descargar Imagen
+    </button>
+    <button class="btn btn-danger" onclick="downloadPDF()">
+      <i class="bi bi-file-earmark-pdf"></i> Descargar PDF
+    </button>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
