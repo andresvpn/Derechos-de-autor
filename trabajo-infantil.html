@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infancias Robadas - No al Trabajo Infantil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #E63946;
+            --secondary: #F1C453;
+            --dark: #1D3557;
+            --light: #F8F7F9;
+            --accent: #457B9D;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, var(--dark), var(--accent));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            margin-bottom: -5%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+        
+        .highlight {
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        .section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            margin: 15px auto 0;
+            border-radius: 5px;
+        }
+        
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            transition: transform 0.4s, box-shadow 0.4s;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+        
+        .card-img {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .card-img::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent 50%);
+        }
+        
+        .card-title {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            color: white;
+            z-index: 1;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+        
+        .stat-item {
+            background: white;
+            border-radius: 15px;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.4s;
+            border-top: 5px solid var(--primary);
+        }
+        
+        .stat-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .stat-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 10px 0;
+            line-height: 1;
+        }
+        
+        .data-source {
+            font-size: 0.8rem;
+            color: #777;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .data-source a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--accent);
+        }
+        
+        .solution-section {
+            background: linear-gradient(135deg, var(--dark), #0F1A30);
+            color: white;
+            padding: 120px 20px;
+            clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 95%);
+            margin: 100px 0;
+        }
+        
+        .solution-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .solution-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        
+        .solution-title span {
+            color: var(--secondary);
+        }
+        
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .solution-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 40px 30px;
+            transition: transform 0.4s;
+            border-left: 5px solid var(--secondary);
+        }
+        
+        .solution-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .solution-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .solution-card p {
+            margin-bottom: 15px;
+        }
+        
+        .quote-section {
+            max-width: 800px;
+            margin: 100px auto;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .quote {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .quote::before, .quote::after {
+            content: '"';
+            font-size: 3rem;
+            color: var(--primary);
+            opacity: 0.3;
+            position: absolute;
+        }
+        
+        .quote::before {
+            top: -20px;
+            left: -30px;
+        }
+        
+        .quote::after {
+            bottom: -40px;
+            right: -30px;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            font-size: 0.9rem;
+        }
+        
+        footer p {
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+        
+        /* Animaciones */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .floating {
+            animation: floating 4s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+        
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+        
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title, .solution-title {
+                font-size: 2.5rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .quote {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>INFANCIAS ROBADAS</h1>
+            <p><span class="highlight">160 millones</span> de niños son víctimas del trabajo infantil en el mundo.<br>Sus sueños se convierten en jornadas laborales interminables.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">La Explotación Laboral Infantil</h2>
+        <div class="card-container">
+            <div class="card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80');">
+                    <h3 class="card-title">Trabajo Peligroso</h3>
+                </div>
+                <div class="card-content">
+                    <p>79 millones de niños realizan trabajos que ponen en riesgo su salud y desarrollo. Según la OIT, estos incluyen minería, construcción, agricultura con químicos tóxicos y trabajo en fábricas insalubres.</p>
+                    <p>Muchos sufren lesiones permanentes, enfermedades crónicas o mueren en accidentes laborales.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80');">
+                    <h3 class="card-title">Esclavitud Moderna</h3>
+                </div>
+                <div class="card-content">
+                    <p>4.3 millones de niños están en situación de trabajo forzoso (OIT, 2022). Son víctimas de trata y terminan en fábricas clandestinas, minas o explotación sexual comercial.</p>
+                    <p>Generan ganancias por $150 mil millones anuales para sus explotadores.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80');">
+                    <h3 class="card-title">Educación Perdida</h3>
+                </div>
+                <div class="card-content">
+                    <p>1 de cada 5 niños trabajadores no asiste a la escuela (UNICEF). Los que van, presentan bajo rendimiento por fatiga.</p>
+                    <p>Sin educación, el ciclo de pobreza se perpetúa: el 60% de estos niños tendrán hijos que también trabajarán.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Cifras Alarmantes</h2>
+        <div class="stats-grid">
+            <div class="stat-item floating">
+                <div class="stat-number">72M</div>
+                <p>Niños trabajadores en África (45% del total mundial)</p>
+            </div>
+            <div class="stat-item floating delay-1">
+                <div class="stat-number">62M</div>
+                <p>En Asia y el Pacífico (segunda región con más casos)</p>
+            </div>
+            <div class="stat-item floating delay-2">
+                <div class="stat-number">70%</div>
+                <p>Trabajan en agricultura (exposición a pesticidas)</p>
+            </div>
+            <div class="stat-item floating delay-3">
+                <div class="stat-number">22K</div>
+                <p>Mueren anualmente en accidentes laborales</p>
+            </div>
+        </div>
+        
+        <div class="data-source">
+            Fuente: <a href="https://www.ilo.org/global/topics/child-labour/lang--es/index.htm" target="_blank">Organización Internacional del Trabajo (OIT), 2022</a>
+        </div>
+    </section>
+
+    <section class="solution-section">
+        <div class="solution-container">
+            <h2 class="solution-title">Podemos <span>cambiarlo</span></h2>
+            <div class="solution-grid">
+                <div class="solution-card">
+                    <h3>Consumo Ético</h3>
+                    <p>Investiga el origen de lo que compras. Prioriza productos con sellos de Comercio Justo que garantizan ausencia de trabajo infantil.</p>
+                    <p>Evita marcas asociadas a explotación laboral.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>Educación y Denuncia</h3>
+                    <p>Informa a otros sobre este problema. Denuncia casos de explotación infantil a las autoridades locales o líneas de ayuda.</p>
+                    <p>Apoya programas de educación para niños vulnerables.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>Acción Política</h3>
+                    <p>Exige a tus representantes leyes más estrictas contra la explotación infantil y su cumplimiento efectivo.</p>
+                    <p>Vota por candidatos con propuestas claras contra el trabajo infantil.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="quote-section">
+        <p class="quote">Ningún niño debería cargar el peso del mundo en sus hombros cuando debería estar soñando con alcanzarlo</p>
+        <p>- Malala Yousafzai</p>
+    </div>
+
+    <footer>
+        <p>Esta campaña se basa en datos oficiales de la Organización Internacional del Trabajo (OIT), UNICEF y la Organización Mundial del Trabajo.</p>
+        <p>Para más información y formas de ayudar, visita <a href="https://www.ilo.org/global/topics/child-labour/lang--es/index.htm" style="color: var(--secondary); font-weight: bold;">ilo.org/child-labour</a></p>
+        <p style="margin-top: 30px;">© 2025 Campaña "Infancias Robadas" - Andres Carvajal</p>
+    </footer>
+</body>
+</html>
