@@ -1050,41 +1050,23 @@
                 searchVideos(searchQuery);
             } else {
                 // Default search
-                const searchVideos = [
+                const frases = [
   "cosas que no sabías hace 5 minutos",
   "te lo resumí",
   "videos más virales",
   "datos curiosos",
   "top 10 del mundo",
-  "historias increíbles pero reales",
-  "te cuento en un minuto",
   "sabías que",
-  "datos perturbadores",
-  "documentales cortos",
-  "curiosidades del mundo",
   "video resumen",
   "lo más visto hoy",
-  "tendencias virales",
-  "resumen rápido",
-  "videos impactantes",
-  "misterios del universo",
-  "lo que no sabías",
-  "increíble pero cierto",
-  "contenido para pensar"
+  "resumen rápido"
 ];
 
-function matchRandom(term) {
-  const matches = searchVideos.filter(item =>
-    item.toLowerCase().includes(term.toLowerCase())
-  );
-  if (matches.length === 0) return null;
-  return matches[Math.floor(Math.random() * matches.length)];
-}
+// Elegir una frase al azar
+const random = frases[Math.floor(Math.random() * frases.length)];
 
-// Ejemplo de uso:
-const jjj = matchRandom("resum");
- 
-searchVideos(jjj) // Puede mostrar "te lo resumí", "video resumen", etc.
+// Llamar a tu función con esa frase
+searchVideos(random);
             }
         }
         
