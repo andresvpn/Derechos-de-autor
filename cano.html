@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box 3D</title>
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #ffffff;
+            color: #333333;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #three-container {
+            width: 100vw;
+            height: 100vh;
+            cursor: grab;
+            position: relative;
+            background: radial-gradient(ellipse at center, #f8f8f8 0%, #ffffff 100%);
+        }
+
+        #three-container:active {
+            cursor: grabbing;
+        }
+
+        .controls-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: #d4af37;
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            pointer-events: none;
+            opacity: 0;
+            animation: fadeIn 2s ease 2s forwards;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 20px;
+            margin: 0 auto;
+            width: fit-content;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .skin-selector {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 15px;
+            border: 2px solid #d4af37;
+            z-index: 100;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            max-width: 300px;
+        }
+
+        .skin-option {
+            width: 70px;
+            height: 70px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skin-option:hover {
+            transform: scale(1.1);
+            border-color: #d4af37;
+        }
+
+        .skin-option.active {
+            border-color: #d4af37;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+        }
+
+        .skin-name {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-size: 10px;
+            padding: 2px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .add-skin-btn {
+            width: 70px;
+            height: 70px;
+            border: 2px dashed #d4af37;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d4af37;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .add-skin-btn:hover {
+            background: rgba(212, 175, 55, 0.2);
+            transform: scale(1.05);
+        }
+
+        .warning-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .warning-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .warning-modal {
+            background: linear-gradient(135deg, rgba(248, 248, 248, 0.98), rgba(255, 255, 255, 0.99));
+            border: 2px solid rgba(212, 175, 55, 0.6);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            max-width: 550px;
+            width: 90%;
+            text-align: center;
+            backdrop-filter: blur(25px);
+            transform: translateY(50px) scale(0.85);
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.15),
+                0 0 0 1px rgba(212, 175, 55, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .warning-modal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #d4af37, #b8941f, #d4af37);
+        }
+
+        .warning-overlay.active .warning-modal {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        .warning-icon {
+            font-size: 4rem;
+            color: #d4af37;
+            margin-bottom: 1.2rem;
+            filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.8));
+            animation: iconPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .warning-title {
+            color: #d4af37;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 15px rgba(212, 175, 55, 0.3);
+            text-transform: uppercase;
+        }
+
+        .warning-message {
+            color: #333333;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            font-weight: 400;
+            min-height: 120px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding: 1.2rem;
+            background: rgba(212, 175, 55, 0.08);
+            border-radius: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow-y: auto;
+            max-height: 280px;
+            text-align: left;
+        }
+
+        /* Estilo personalizado para la barra de desplazamiento */
+        .warning-message::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .warning-message::-webkit-scrollbar-track {
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 4px;
+        }
+
+        .warning-message::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.5);
+            border-radius: 4px;
+        }
+
+        .warning-message::-webkit-scrollbar-thumb:hover {
+            background: rgba(212, 175, 55, 0.7);
+        }
+
+        .warning-message.changing::before {
+            left: 100%;
+        }
+
+        .close-btn {
+            background: linear-gradient(135deg, #d4af37, #b8941f);
+            color: #ffffff;
+            border: none;
+            padding: 14px 35px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            letter-spacing: 1px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+        }
+
+        .close-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .close-btn:hover::before {
+            left: 100%;
+        }
+
+        .close-btn:hover {
+            background: linear-gradient(135deg, #e0c158, #c9a329);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4);
+        }
+
+        .close-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .message-counter {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: #d4af37;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: rgba(212, 175, 55, 0.15);
+            padding: 5px 12px;
+            border-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            flex-direction: column;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(212, 175, 55, 0.3);
+            border-top: 3px solid #d4af37;
+            border-radius: 50%;
+            animation: spin 1.2s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        .loading-text {
+            color: #d4af37;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #d4af37;
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .add-skin-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .add-skin-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .add-skin-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .add-skin-form h3 {
+            margin-bottom: 1.5rem;
+            color: #d4af37;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 1.5rem;
+        }
+
+        .form-actions button {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #d4af37;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #b8941f;
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <div class="loading-text">Cargando Experiencia 3D</div>
+    </div>
+
+    <!-- Particles Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Skin Selector -->
+    <div class="skin-selector" id="skinSelector">
+        <!-- Se generará automáticamente desde JavaScript -->
+    </div>
+
+    <!-- 3D Scene -->
+    <div id="three-container">
+        <div class="controls-hint">
+            <i class="bi bi-arrows-move me-2"></i>Arrastra para rotar • 
+            <i class="bi bi-mouse-fill ms-3 me-2"></i>Clic para ver advertencia
+        </div>
+    </div>
+
+    <!-- Warning Overlay -->
+    <div class="warning-overlay" id="warningOverlay">
+        <div class="warning-modal">
+            <div class="message-counter" id="messageCounter">1/1</div>
+            <div class="warning-icon">
+                <i class="bi bi-shield-shaded"></i>
+            </div>
+            <h2 class="warning-title">No se puede abrir</h2>
+            <div class="warning-message" id="warningMessage">
+                <!-- El mensaje se cargará dinámicamente -->
+            </div>
+            <button class="close-btn" id="closeWarning">
+                <i class="bi bi-shield-check me-2"></i>Confirmar Entendimiento
+            </button>
+        </div>
+    </div>
+
+    <!-- Add Skin Modal -->
+    <div class="add-skin-modal" id="addSkinModal">
+        <div class="add-skin-form">
+            <h3>Agregar Nueva Skin</h3>
+            <div class="form-group">
+                <label for="skinName">Nombre de la Skin</label>
+                <input type="text" id="skinName" placeholder="Ej: Madera, Metal, etc.">
+            </div>
+            <div class="form-group">
+                <label for="skinUrl">URL de la Textura</label>
+                <input type="text" id="skinUrl" placeholder="https://ejemplo.com/textura.jpg">
+            </div>
+            <div class="form-group">
+                <label for="skinCinta">Color de Cinta (Hex)</label>
+                <input type="text" id="skinCinta" placeholder="#D2691E" value="#D2691E">
+            </div>
+            <div class="form-group">
+                <label for="skinEtiqueta">Color de Etiqueta (Hex)</label>
+                <input type="text" id="skinEtiqueta" placeholder="#cc0000" value="#cc0000">
+            </div>
+            <div class="form-group">
+                <label for="skinSello">Color de Sello (Hex)</label>
+                <input type="text" id="skinSello" placeholder="#000000" value="#000000">
+            </div>
+            <div class="form-actions">
+                <button class="btn-secondary" id="cancelAddSkin">Cancelar</button>
+                <button class="btn-primary" id="saveSkin">Guardar Skin</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Array de mensajes de advertencia mejorados
+        const mensajes = [
+            "El contenido de la caja es inaccesible porque, aunque yo pueda imaginar lo que hay dentro, no tengo la experiencia real de verlo. Esto me recuerda a lo que dice Thomas Nagel en ¿Qué se siente ser un murciélago?, ya que nunca sabremos cómo es realmente la experiencia subjetiva e interna de otro ser. Igual que con la caja cerrada, solamente percibo lo externo, mientras lo interno permanece siempre oculto, marcando claramente los límites del conocimiento humano y de la conciencia ajena.",
+        ];
+
+        // SISTEMA GLOBAL DE SKINS CON FALLBACK AUTOMÁTICO
+        const Skin = {
+            Carton: {
+                Url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq0hEL2KYLFhjom6ZJjHcybJ20uXFHpwrOQy_9nD-80g&s=10",
+                Cinta: "#8B4513",
+                Etiqueta: "#8B4513",
+                Sello: "#8B4513"
+            },
+            Metal: {
+                Url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH4IpOrRWpOqqky6pl47dil6AUxvh0u0s4G1X9JFoOpg&s",
+                Cinta: "#000000",
+                Etiqueta: "#000000",
+                Sello: "#000000"
+            },
+            Cuero: {
+                Url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQzHQ5SokZpm_TgFvCU45BKf4nL0fBX1A-la769ni2J6wpPcJd4OiYLOw&s",
+                Cinta: "#8B4513",
+                Etiqueta: "#8B4513",
+                Sello: "#8B4513"
+            },
+			Cafe: {
+				Url: "https://www.shutterstock.com/image-vector/coffee-house-pattern-doodle-cookies-600nw-2276719009.jpg",	Cinta: "#8B4513",
+                Etiqueta: "#8B4513",
+                Sello: "#8B4513",
+				Cinta: "#8B4513",
+			},
+			Emoji: {
+				Url: "https://thumbs.dreamstime.com/b/emoji-seamless-pattern-emoticons-yellow-vector-background-smiles-face-texture-template-modern-smileys-textiles-interior-design-85506404.jpg",
+				Cinta: "#8B4513",
+                Etiqueta: "#8B4513",
+                Sello: "#8B4513"
+			}
+        };
+
+        // Variables Three.js
+        let scene, camera, renderer, box;
+        let isDragging = false;
+        let previousMousePosition = { x: 0, y: 0 };
+        let autoRotate = true;
+        let currentMessageIndex = 0;
+        let textureLoader = new THREE.TextureLoader();
+        let currentSkin = 'Cuero'; // Skin por defecto
+
+        // Función para obtener o crear una skin
+        function getOrCreateSkin(skinName) {
+            if (Skin[skinName]) {
+                return Skin[skinName];
+            } else {
+                // Crear skin automáticamente si no existe
+                console.log(`Skin "${skinName}" no encontrada. Creando automáticamente.`);
+                
+                // Colores por defecto para nuevas skins
+                const defaultColors = {
+                    Cinta: "#D2691E",
+                    Etiqueta: "#cc0000",
+                    Sello: "#000000"
+                };
+                
+                // URL de textura por defecto (patrón de madera)
+                const defaultUrl = "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80";
+                
+                // Crear nueva skin
+                Skin[skinName] = {
+                    Url: defaultUrl,
+                    Cinta: defaultColors.Cinta,
+                    Etiqueta: defaultColors.Etiqueta,
+                    Sello: defaultColors.Sello
+                };
+                
+                // Actualizar selector
+                generateSkinSelector();
+                
+                return Skin[skinName];
+            }
+        }
+
+        // Inicializar Three.js
+        function init() {
+            // Crear escena
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xffffff);
+
+            // Crear cámara
+            camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 1, 8);
+
+            // Crear renderizador
+            renderer = new THREE.WebGLRenderer({ 
+                antialias: true,
+                alpha: false
+            });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            document.getElementById('three-container').appendChild(renderer.domElement);
+
+            // Generar selector de skins automáticamente
+            generateSkinSelector();
+
+            // Crear caja premium
+            createPremiumBox();
+
+            // Configurar iluminación profesional
+            setupPremiumLighting();
+
+            // Crear entorno
+            createEnvironment();
+
+            // Event listeners
+            setupEventListeners();
+
+            // Crear partículas
+            createParticles();
+
+            // Ocultar loading screen
+            setTimeout(() => {
+                document.getElementById('loading').style.display = 'none';
+            }, 1500);
+
+            // Iniciar animación
+            animate();
+
+            // Configurar mensaje inicial
+            updateWarningMessage();
+        }
+
+        // Generar selector de skins automáticamente desde la constante Skin
+        function generateSkinSelector() {
+            const selector = document.getElementById('skinSelector');
+            selector.innerHTML = ''; // Limpiar selector
+            
+            Object.keys(Skin).forEach(skinName => {
+                const skinOption = document.createElement('div');
+                skinOption.className = 'skin-option';
+                if (skinName === currentSkin) {
+                    skinOption.classList.add('active');
+                }
+                skinOption.setAttribute('data-skin', skinName);
+                skinOption.style.backgroundImage = `url('${Skin[skinName].Url}')`;
+                
+                const skinNameElement = document.createElement('div');
+                skinNameElement.className = 'skin-name';
+                skinNameElement.textContent = skinName;
+                
+                skinOption.appendChild(skinNameElement);
+                selector.appendChild(skinOption);
+            });
+            
+            // Agregar botón para añadir skins
+            const addButton = document.createElement('div');
+            addButton.className = 'add-skin-btn';
+            addButton.innerHTML = '<i class="bi bi-plus-lg"></i>';
+            addButton.title = 'Agregar nueva skin';
+            selector.appendChild(addButton);
+        }
+
+        // Crear caja premium con skin
+        function createPremiumBox() {
+            // Crear un grupo para contener toda la caja y sus elementos
+            box = new THREE.Group();
+            
+            // Cargar skin actual
+            loadSkin(currentSkin);
+            
+            scene.add(box);
+        }
+
+        // Cargar skin y aplicar a toda la caja
+        function loadSkin(skinName) {
+            const skin = getOrCreateSkin(skinName);
+            
+            textureLoader.load(skin.Url, 
+                // onLoad
+                function(texture) {
+                    console.log('Skin cargada exitosamente:', skinName);
+                    
+                    // Configurar la textura para que se repita
+                    texture.wrapS = THREE.RepeatWrapping;
+                    texture.wrapT = THREE.RepeatWrapping;
+                    texture.repeat.set(2, 2);
+                    
+                    // Limpiar caja existente
+                    while(box.children.length > 0) {
+                        box.remove(box.children[0]);
+                    }
+
+                    // Crear la caja principal con la skin
+                    createTexturedBox(texture);
+                    
+                    // Agregar elementos decorativos con colores de la skin
+                    addPackagingDetails(skin);
+                    addInstagramStickers();
+                },
+                // onProgress
+                function(xhr) {
+                    console.log((xhr.loaded / xhr.total * 100) + '% cargado');
+                },
+                // onError
+                function(error) {
+                    console.error('Error cargando la skin:', skinName, error);
+                    // Usar fallback
+                    createFallbackBox(skin);
+                }
+            );
+        }
+
+        // Crear caja con textura
+        function createTexturedBox(texture) {
+            const boxGeometry = new THREE.BoxGeometry(3.5, 2.2, 1.8);
+            
+            // Crear materiales con la misma textura para todas las caras
+            const skinMaterials = [];
+            for (let i = 0; i < 6; i++) {
+                skinMaterials.push(new THREE.MeshStandardMaterial({ 
+                    map: texture,
+                    color: 0xffffff,
+                    roughness: 0.6,
+                    metalness: 0.1
+                }));
+            }
+            
+            // Crear malla principal
+            const boxMesh = new THREE.Mesh(boxGeometry, skinMaterials);
+            boxMesh.castShadow = true;
+            boxMesh.receiveShadow = true;
+            box.add(boxMesh);
+        }
+
+        // Crear caja de respaldo
+        function createFallbackBox(skin) {
+            const boxGeometry = new THREE.BoxGeometry(3.5, 2.2, 1.8);
+            
+            const fallbackMaterials = [];
+            for (let i = 0; i < 6; i++) {
+                fallbackMaterials.push(new THREE.MeshStandardMaterial({ 
+                    color: 0x8B4513,
+                    roughness: 0.6,
+                    metalness: 0.1
+                }));
+            }
+
+            const boxMesh = new THREE.Mesh(boxGeometry, fallbackMaterials);
+            boxMesh.castShadow = true;
+            boxMesh.receiveShadow = true;
+            box.add(boxMesh);
+
+            addPackagingDetails(skin);
+            addInstagramStickers();
+        }
+
+        // Agregar detalles de embalaje con colores de la skin
+        function addPackagingDetails(skin) {
+            // Convertir colores hexadecimales a THREE.Color
+            const cintaColor = new THREE.Color(skin.Cinta);
+            const etiquetaColor = new THREE.Color(skin.Etiqueta);
+            const selloColor = new THREE.Color(skin.Sello);
+
+            // MATERIAL PARA CINTAS
+            const tapeMaterial = new THREE.MeshStandardMaterial({
+                color: cintaColor,
+                roughness: 0.7,
+                metalness: 0.1
+            });
+
+            // CINTAS QUE RODEAN TODA LA CAJA (4 lados)
+            
+            // Cinta frontal (largo)
+            const tapeFront = new THREE.Mesh(
+                new THREE.BoxGeometry(3.2, 0.15, 0.02),
+                tapeMaterial
+            );
+            tapeFront.position.set(0, 0.6, 0.91);
+            tapeFront.castShadow = true;
+            box.add(tapeFront);
+
+            // Cinta trasera (largo)
+            const tapeBack = new THREE.Mesh(
+                new THREE.BoxGeometry(3.2, 0.15, 0.02),
+                tapeMaterial
+            );
+            tapeBack.position.set(0, 0.6, -0.91);
+            tapeBack.castShadow = true;
+            box.add(tapeBack);
+
+            // Cinta lateral derecha (largo)
+            const tapeRight = new THREE.Mesh(
+                new THREE.BoxGeometry(0.02, 0.15, 1.6),
+                tapeMaterial
+            );
+            tapeRight.position.set(1.76, 0.6, 0);
+            tapeRight.castShadow = true;
+            box.add(tapeRight);
+
+            // Cinta lateral izquierda (largo)
+            const tapeLeft = new THREE.Mesh(
+                new THREE.BoxGeometry(0.02, 0.15, 1.6),
+                tapeMaterial
+            );
+            tapeLeft.position.set(-1.76, 0.6, 0);
+            tapeLeft.castShadow = true;
+            box.add(tapeLeft);
+
+            // SELLO/CUADRADO CENTRAL (ya no es blanco)
+            const selloGeometry = new THREE.PlaneGeometry(1.2, 0.6);
+            const selloMaterial = new THREE.MeshStandardMaterial({
+                color: selloColor,
+                roughness: 0.4,
+                metalness: 0.2
+            });
+            const sello = new THREE.Mesh(selloGeometry, selloMaterial);
+            sello.position.set(0, -0.5, 0.91);
+            sello.rotation.x = Math.PI;
+            sello.castShadow = true;
+            box.add(sello);
+
+            // ETIQUETA DE PELIGRO
+            const labelGeometry = new THREE.PlaneGeometry(1.2, 0.6);
+            const labelMaterial = new THREE.MeshStandardMaterial({
+                color: etiquetaColor,
+                roughness: 0.4,
+                metalness: 0.1
+            });
+            const label = new THREE.Mesh(labelGeometry, labelMaterial);
+            label.position.set(0, 0.5, 0.91);
+            label.rotation.x = Math.PI;
+            label.castShadow = true;
+            box.add(label);
+        }
+
+        // Agregar calcos de Instagram
+        function addInstagramStickers() {
+            const stickerGeometry = new THREE.PlaneGeometry(0.8, 0.8);
+            const stickerMaterial = new THREE.MeshStandardMaterial({
+                color: 0xffffff,
+                roughness: 0.2,
+                metalness: 0.1,
+                transparent: true,
+                opacity: 0.8
+            });
+
+            const positions = [
+                { position: [0, 0, 0.91], rotation: [0, 0, 0] },
+                { position: [0, 0, -0.91], rotation: [0, Math.PI, 0] },
+                { position: [1.76, 0, 0], rotation: [0, Math.PI/2, 0] },
+                { position: [-1.76, 0, 0], rotation: [0, -Math.PI/2, 0] },
+                { position: [0, 1.11, 0], rotation: [-Math.PI/2, 0, 0] },
+                { position: [0, -1.11, 0], rotation: [Math.PI/2, 0, 0] }
+            ];
+
+            positions.forEach(pos => {
+                const sticker = new THREE.Mesh(stickerGeometry, stickerMaterial);
+                sticker.position.set(pos.position[0], pos.position[1], pos.position[2]);
+                sticker.rotation.set(pos.rotation[0], pos.rotation[1], pos.rotation[2]);
+                sticker.castShadow = true;
+                box.add(sticker);
+
+                // Texto de Instagram
+                const textGeometry = new THREE.PlaneGeometry(0.5, 0.15);
+                const textMaterial = new THREE.MeshStandardMaterial({
+                    color: 0x000000,
+                    roughness: 0.3,
+                    metalness: 0.2,
+                    transparent: true,
+                    opacity: 0.9
+                });
+                const text = new THREE.Mesh(textGeometry, textMaterial);
+                text.position.set(pos.position[0], pos.position[1] - 0.5, pos.position[2]);
+                text.rotation.set(pos.rotation[0], pos.rotation[1], pos.rotation[2]);
+                box.add(text);
+            });
+        }
+
+        // Configurar iluminación
+        function setupPremiumLighting() {
+            // Luz ambiental
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+            scene.add(ambientLight);
+
+            // Luz direccional principal
+            const mainLight = new THREE.DirectionalLight(0xffffff, 1.0);
+            mainLight.position.set(8, 12, 6);
+            mainLight.castShadow = true;
+            mainLight.shadow.mapSize.width = 2048;
+            mainLight.shadow.mapSize.height = 2048;
+            scene.add(mainLight);
+
+            // Luz de relleno
+            const fillLight = new THREE.DirectionalLight(0xffffff, 0.4);
+            fillLight.position.set(-6, 5, -6);
+            scene.add(fillLight);
+        }
+
+        // Crear entorno
+        function createEnvironment() {
+            const floorGeometry = new THREE.PlaneGeometry(20, 20);
+            const floorMaterial = new THREE.ShadowMaterial({ 
+                opacity: 0.1
+            });
+            const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+            floor.rotation.x = -Math.PI / 2;
+            floor.position.y = -1.5;
+            floor.receiveShadow = true;
+            scene.add(floor);
+        }
+
+        // Crear partículas
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.opacity = Math.random() * 0.5 + 0.2;
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Configurar event listeners
+        function setupEventListeners() {
+            const container = document.getElementById('three-container');
+            
+            // Rotación manual
+            container.addEventListener('mousedown', onMouseDown);
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+            
+            container.addEventListener('touchstart', onTouchStart);
+            document.addEventListener('touchmove', onTouchMove);
+            document.addEventListener('touchend', onTouchEnd);
+            
+            // Click para mostrar advertencia
+            container.addEventListener('click', showWarning);
+            
+            // Selector de skins
+            document.getElementById('skinSelector').addEventListener('click', function(event) {
+                const skinOption = event.target.closest('.skin-option');
+                if (skinOption) {
+                    const skinName = skinOption.getAttribute('data-skin');
+                    changeSkin(skinName);
+                    
+                    // Actualizar clase activa
+                    document.querySelectorAll('.skin-option').forEach(opt => {
+                        opt.classList.remove('active');
+                    });
+                    skinOption.classList.add('active');
+                }
+                
+                // Botón agregar skin
+                if (event.target.closest('.add-skin-btn')) {
+                    showAddSkinModal();
+                }
+            });
+            
+            // Modal agregar skin
+            document.getElementById('cancelAddSkin').addEventListener('click', hideAddSkinModal);
+            document.getElementById('saveSkin').addEventListener('click', saveNewSkin);
+            
+            window.addEventListener('resize', onWindowResize);
+        }
+
+        // Mostrar modal para agregar skin
+        function showAddSkinModal() {
+            document.getElementById('addSkinModal').classList.add('active');
+        }
+
+        // Ocultar modal para agregar skin
+        function hideAddSkinModal() {
+            document.getElementById('addSkinModal').classList.remove('active');
+            // Limpiar formulario
+            document.getElementById('skinName').value = '';
+            document.getElementById('skinUrl').value = '';
+        }
+
+        // Guardar nueva skin
+        function saveNewSkin() {
+            const name = document.getElementById('skinName').value.trim();
+            const url = document.getElementById('skinUrl').value.trim();
+            const cinta = document.getElementById('skinCinta').value.trim();
+            const etiqueta = document.getElementById('skinEtiqueta').value.trim();
+            const sello = document.getElementById('skinSello').value.trim();
+            
+            if (!name) {
+                alert('Por favor ingresa un nombre para la skin');
+                return;
+            }
+            
+            // Crear nueva skin
+            Skin[name] = {
+                Url: url || "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                Cinta: cinta || "#D2691E",
+                Etiqueta: etiqueta || "#cc0000",
+                Sello: sello || "#000000"
+            };
+            
+            // Actualizar selector
+            generateSkinSelector();
+            
+            // Cambiar a la nueva skin
+            changeSkin(name);
+            
+            // Ocultar modal
+            hideAddSkinModal();
+            
+            console.log(`Nueva skin "${name}" agregada exitosamente`);
+        }
+
+        // Cambiar skin
+        function changeSkin(skinName) {
+            currentSkin = skinName;
+            loadSkin(skinName);
+        }
+
+        // Event handlers para mouse
+        function onMouseDown(event) {
+            isDragging = true;
+            autoRotate = false;
+            previousMousePosition = {
+                x: event.clientX,
+                y: event.clientY
+            };
+        }
+
+        function onMouseMove(event) {
+            if (!isDragging) return;
+            
+            const deltaMove = {
+                x: event.clientX - previousMousePosition.x,
+                y: event.clientY - previousMousePosition.y
+            };
+            
+            if (box) {
+                box.rotation.y += deltaMove.x * 0.008;
+                box.rotation.x += deltaMove.y * 0.008;
+            }
+            
+            previousMousePosition = {
+                x: event.clientX,
+                y: event.clientY
+            };
+        }
+
+        function onMouseUp() {
+            isDragging = false;
+            setTimeout(() => { autoRotate = true; }, 3000);
+        }
+
+        // Event handlers para touch
+        function onTouchStart(event) {
+            if (event.touches.length === 1) {
+                isDragging = true;
+                autoRotate = false;
+                previousMousePosition = {
+                    x: event.touches[0].clientX,
+                    y: event.touches[0].clientY
+                };
+            }
+        }
+
+        function onTouchMove(event) {
+            if (!isDragging || event.touches.length !== 1) return;
+            
+            const deltaMove = {
+                x: event.touches[0].clientX - previousMousePosition.x,
+                y: event.touches[0].clientY - previousMousePosition.y
+            };
+            
+            if (box) {
+                box.rotation.y += deltaMove.x * 0.008;
+                box.rotation.x += deltaMove.y * 0.008;
+            }
+            
+            previousMousePosition = {
+                x: event.touches[0].clientX,
+                y: event.touches[0].clientY
+            };
+        }
+
+        function onTouchEnd() {
+            isDragging = false;
+            setTimeout(() => { autoRotate = true; }, 3000);
+        }
+
+        // Mostrar advertencia
+        function showWarning(event) {
+            if (!isDragging) {
+                event.stopPropagation();
+                
+                const messageElement = document.getElementById('warningMessage');
+                messageElement.classList.add('changing');
+                
+                setTimeout(() => {
+                    currentMessageIndex = (currentMessageIndex + 1) % mensajes.length;
+                    updateWarningMessage();
+                    messageElement.classList.remove('changing');
+                }, 300);
+                
+                document.getElementById('warningOverlay').classList.add('active');
+            }
+        }
+
+        // Actualizar mensaje
+        function updateWarningMessage() {
+            const messageElement = document.getElementById('warningMessage');
+            const counterElement = document.getElementById('messageCounter');
+            
+            messageElement.textContent = mensajes[currentMessageIndex];
+            counterElement.textContent = `${currentMessageIndex + 1}/${mensajes.length}`;
+        }
+
+        // Ajustar tamaño
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // Animación
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            if (box && autoRotate && !isDragging) {
+                box.rotation.y += 0.004;
+                box.rotation.x += 0.001;
+            }
+            
+            renderer.render(scene, camera);
+        }
+
+        // Inicializar
+        window.addEventListener('load', init);
+
+        // Cerrar advertencia
+        document.getElementById('closeWarning').addEventListener('click', function() {
+            document.getElementById('warningOverlay').classList.remove('active');
+        });
+
+        document.getElementById('warningOverlay').addEventListener('click', function(event) {
+            if (event.target === this) {
+                document.getElementById('warningOverlay').classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
