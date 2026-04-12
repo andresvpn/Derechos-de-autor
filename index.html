@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   
-  <!-- ========== META TAGS PARA SEO ========== -->
   <title>Michael Carvajal · Tecnología, Arte y Filosofía</title>
   <meta name="description" content="Portafolio de Michael Andres Carvajal Orozco: Estudiante de Análisis y Desarrollo de Software, apasionado por la tecnología, la poesía, el arte y la música. Diplomado en Innovación por la Universidad Nacional.">
   <meta name="keywords" content="Michael Carvajal, desarrollador, análisis de software, tecnología, poesía, arte, música, innovación, Universidad Nacional">
@@ -13,7 +12,6 @@
   <meta name="language" content="Spanish">
   <meta name="revisit-after" content="7 days">
   
-  <!-- ========== OPEN GRAPH / REDES SOCIALES ========== -->
   <meta property="og:title" content="Michael Carvajal · Tecnología, Arte y Filosofía">
   <meta property="og:description" content="Portafolio de Michael Andres Carvajal Orozco: Estudiante de Análisis y Desarrollo de Software, apasionado por la tecnología, la poesía, el arte y la música.">
   <meta property="og:image" content="https://ui-avatars.com/api/?background=0f172a&color=38bdf8&bold=true&rounded=true&size=300&fontsize=0.65&name=Michael+Carvajal&length=2&fontweight=700">
@@ -23,27 +21,20 @@
   <meta property="og:url" content="https://andrescarvajal.xyz">
   <meta property="og:site_name" content="Michael Carvajal Portfolio">
   
-  <!-- ========== TWITTER CARDS ========== -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Michael Carvajal · Tecnología, Arte y Filosofía">
   <meta name="twitter:description" content="Portafolio de Michael Carvajal: Tecnología, poesía, arte e innovación.">
   <meta name="twitter:image" content="https://ui-avatars.com/api/?background=0f172a&color=38bdf8&bold=true&rounded=true&size=300&fontsize=0.65&name=Michael+Carvajal&length=2&fontweight=700">
   
-  <!-- ========== META PARA DISPOSITIVOS MÓVILES ========== -->
   <meta name="theme-color" content="#05070a">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   
-  <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='60' fill='%2338bdf8'>MC</text></svg>">
   
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-  <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Swiper CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   
   <style>
@@ -61,7 +52,6 @@
       overflow-x: hidden;
     }
 
-    /* ===== FONDO TECNOLÓGICO OPTIMIZADO ===== */
     .tech-bg {
       position: fixed;
       top: 0;
@@ -71,6 +61,7 @@
       z-index: 0;
       overflow: hidden;
       background: radial-gradient(circle at 30% 20%, #0a0f1e, #020408);
+      pointer-events: none;
     }
 
     .particle-network {
@@ -130,7 +121,6 @@
       100% { transform: translate(60px, -40px) scale(1.2); opacity: 0.3; }
     }
 
-    /* ===== MOLÉCULAS ADN ALREDEDOR DEL AVATAR ===== */
     .dna-container {
       position: relative;
       display: inline-block;
@@ -158,7 +148,6 @@
     .molecule:nth-child(7) { animation-duration: 6s; width: 4px; height: 4px; background: #a78bfa; top: 45%; left: 35%; }
     .molecule:nth-child(8) { animation-duration: 14s; width: 8px; height: 8px; background: #06b6d4; top: 25%; left: 65%; }
 
-    /* Capa principal */
     .main-content {
       position: relative;
       z-index: 20;
@@ -167,7 +156,6 @@
       min-height: 100vh;
     }
 
-    /* ===== MENÚ ===== */
     .glass-nav {
       background: rgba(10, 20, 35, 0.94);
       backdrop-filter: blur(16px);
@@ -205,7 +193,6 @@
     }
     .nav-link-tech:hover::after { width: 100%; }
 
-    /* Contenedor */
     .container-premium {
       max-width: 1300px;
       margin: 0 auto;
@@ -217,7 +204,6 @@
     }
     section:last-child { border-bottom: none; }
 
-    /* Avatar */
     .avatar-tech {
       width: 170px;
       height: 170px;
@@ -231,7 +217,6 @@
     }
     .avatar-tech:hover { transform: scale(1.02); box-shadow: 0 0 40px rgba(56, 189, 248, 0.6); }
 
-    /* Título */
     .gradient-name {
       font-weight: 800;
       font-size: 3.2rem;
@@ -259,7 +244,6 @@
       font-weight: 600;
     }
 
-    /* Frase filosófica */
     .philosophy-quote {
       font-style: italic;
       font-size: 0.95rem;
@@ -269,7 +253,6 @@
       margin: 1.5rem 0;
     }
 
-    /* Botones */
     .btn-group-flex {
       display: flex;
       gap: 1rem;
@@ -317,7 +300,6 @@
       transform: translateY(-2px);
     }
 
-    /* Info cards */
     .info-grid {
       display: flex;
       flex-wrap: wrap;
@@ -343,7 +325,6 @@
     .info-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: #94a3b8; font-weight: 600; }
     .info-value { font-weight: 600; font-size: 1rem; color: #f1f5f9; margin-top: 0.4rem; }
 
-    /* Slider de intereses */
     .interest-slide-card {
       background: rgba(15, 25, 45, 0.75);
       backdrop-filter: blur(8px);
@@ -376,7 +357,6 @@
       line-height: 1.5;
     }
 
-    /* Proyectos Swiper */
     .project-card-tech {
       background: rgba(15, 25, 45, 0.7);
       backdrop-filter: blur(4px);
@@ -394,7 +374,6 @@
     .swiper-pagination-bullet { background: #475569; opacity: 0.7; }
     .swiper-pagination-bullet-active { background: #38bdf8; opacity: 1; }
 
-    /* Redes sociales */
     .social-grid {
       display: flex;
       justify-content: center;
@@ -422,7 +401,6 @@
       background: rgba(56, 189, 248, 0.15);
     }
 
-    /* Footer */
     footer {
       text-align: center;
       padding: 2rem;
@@ -460,7 +438,6 @@
 </div>
 
 <div class="main-content">
-  <!-- Menú -->
   <nav class="glass-nav fixed-top">
     <div class="container-premium d-flex justify-content-between align-items-center">
       <span class="logo">MC.</span>
@@ -486,7 +463,6 @@
     </div>
   </nav>
 
-  <!-- Hero Section -->
   <section id="inicio" style="padding-top: 7rem;">
     <div class="container-premium">
       <div class="row align-items-center gy-5">
@@ -516,7 +492,6 @@
     </div>
   </section>
 
-  <!-- Perfil -->
   <section id="perfil">
     <div class="container-premium">
       <div class="text-center mb-5">
@@ -546,7 +521,6 @@
     </div>
   </section>
 
-  <!-- SECCIÓN INTERESES: Slider con gustos personales -->
   <section id="intereses" style="background: rgba(0, 0, 0, 0.2);">
     <div class="container-premium">
       <div class="text-center mb-4">
@@ -555,48 +529,17 @@
       </div>
       <div class="swiper interestsSwiper">
         <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="interest-slide-card">
-              <i class="fas fa-palette interest-slide-icon"></i>
-              <h3 class="interest-slide-title">Arte visual</h3>
-              <p class="interest-slide-desc">El color, la composición y la expresión visual. Desde el Renacimiento hasta el arte digital contemporáneo.</p>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="interest-slide-card">
-              <i class="fas fa-feather-alt interest-slide-icon"></i>
-              <h3 class="interest-slide-title">Poesía</h3>
-              <p class="interest-slide-desc">Pizarnik, Cortázar, Benedetti. La palabra justa, la metáfora exacta, la emoción hecha verso.</p>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="interest-slide-card">
-              <i class="fas fa-music interest-slide-icon"></i>
-              <h3 class="interest-slide-title">Música</h3>
-              <p class="interest-slide-desc">Jazz, indie, clásica y rock progresivo. Cada género me da un ritmo distinto para crear.</p>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="interest-slide-card">
-              <i class="fas fa-book-open interest-slide-icon"></i>
-              <h3 class="interest-slide-title">Literatura</h3>
-              <p class="interest-slide-desc">Novela, ensayo y filosofía. Borges, Kafka, y los grandes pensadores que cuestionan el mundo.</p>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="interest-slide-card">
-              <i class="fas fa-film interest-slide-icon"></i>
-              <h3 class="interest-slide-title">Cine de autor</h3>
-              <p class="interest-slide-desc">Tarkovsky, Lynch, Bergman. El séptimo arte como ventana a otras realidades.</p>
-            </div>
-          </div>
+          <div class="swiper-slide"><div class="interest-slide-card"><i class="fas fa-palette interest-slide-icon"></i><h3 class="interest-slide-title">Arte visual</h3><p class="interest-slide-desc">El color, la composición y la expresión visual. Desde el Renacimiento hasta el arte digital contemporáneo.</p></div></div>
+          <div class="swiper-slide"><div class="interest-slide-card"><i class="fas fa-feather-alt interest-slide-icon"></i><h3 class="interest-slide-title">Poesía</h3><p class="interest-slide-desc">Pizarnik, Cortázar, Benedetti. La palabra justa, la metáfora exacta, la emoción hecha verso.</p></div></div>
+          <div class="swiper-slide"><div class="interest-slide-card"><i class="fas fa-music interest-slide-icon"></i><h3 class="interest-slide-title">Música</h3><p class="interest-slide-desc">Jazz, indie, clásica y rock progresivo. Cada género me da un ritmo distinto para crear.</p></div></div>
+          <div class="swiper-slide"><div class="interest-slide-card"><i class="fas fa-book-open interest-slide-icon"></i><h3 class="interest-slide-title">Literatura</h3><p class="interest-slide-desc">Novela, ensayo y filosofía. Borges, Kafka, y los grandes pensadores que cuestionan el mundo.</p></div></div>
+          <div class="swiper-slide"><div class="interest-slide-card"><i class="fas fa-film interest-slide-icon"></i><h3 class="interest-slide-title">Cine de autor</h3><p class="interest-slide-desc">Tarkovsky, Lynch, Bergman. El séptimo arte como ventana a otras realidades.</p></div></div>
         </div>
         <div class="swiper-pagination interests-pagination"></div>
       </div>
     </div>
   </section>
 
-  <!-- Proyectos -->
   <section id="proyectos">
     <div class="container-premium">
       <div class="text-center mb-4">
@@ -615,7 +558,6 @@
     </div>
   </section>
 
-  <!-- Redes Sociales -->
   <section id="social">
     <div class="container-premium text-center">
       <h2 class="fw-semibold mb-3" style="color: #e2e8f0;">Conecta conmigo</h2>
@@ -631,7 +573,6 @@
     </div>
   </section>
 
-  <!-- Footer con enlace a copyright.html -->
   <footer>
     <div class="container-premium">
       <p>© 2025 Michael Andres Carvajal Orozco · <a href="copyright.html" class="footer-link">Todos los derechos reservados</a> · Tecnología, arte y pensamiento crítico</p>
@@ -642,50 +583,46 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Swipers
-    const projectsSwiper = new Swiper('.projectsSwiper', {
-      slidesPerView: 1,
-      spaceBetween: 24,
-      pagination: { el: '.projects-pagination', clickable: true, dynamicBullets: true },
-      breakpoints: { 640: { slidesPerView: 1.2 }, 768: { slidesPerView: 2 }, 1024: { slidesPerView: 2.4 }, 1280: { slidesPerView: 3 } },
-      grabCursor: true,
-      speed: 500,
-    });
-    
-    const interestsSwiper = new Swiper('.interestsSwiper', {
-      slidesPerView: 1,
-      spaceBetween: 24,
-      pagination: { el: '.interests-pagination', clickable: true, dynamicBullets: true },
-      breakpoints: { 640: { slidesPerView: 1.5 }, 768: { slidesPerView: 2.2 }, 1024: { slidesPerView: 3 } },
-      grabCursor: true,
-      speed: 550,
-    });
-    
-    // Ajuste navbar
-    const nav = document.querySelector('.glass-nav');
-    const hero = document.querySelector('#inicio');
-    function adjustHeroPadding() {
-      if (nav && hero) hero.style.paddingTop = `calc(5rem + ${nav.offsetHeight}px)`;
-    }
-    adjustHeroPadding();
-    window.addEventListener('resize', adjustHeroPadding);
-  });
-  
   (function() {
+    document.addEventListener('DOMContentLoaded', function() {
+      new Swiper('.projectsSwiper', {
+        slidesPerView: 1,
+        spaceBetween: 24,
+        pagination: { el: '.projects-pagination', clickable: true, dynamicBullets: true },
+        breakpoints: { 640: { slidesPerView: 1.2 }, 768: { slidesPerView: 2 }, 1024: { slidesPerView: 2.4 }, 1280: { slidesPerView: 3 } },
+        grabCursor: true,
+        speed: 500,
+      });
+      
+      new Swiper('.interestsSwiper', {
+        slidesPerView: 1,
+        spaceBetween: 24,
+        pagination: { el: '.interests-pagination', clickable: true, dynamicBullets: true },
+        breakpoints: { 640: { slidesPerView: 1.5 }, 768: { slidesPerView: 2.2 }, 1024: { slidesPerView: 3 } },
+        grabCursor: true,
+        speed: 550,
+      });
+      
+      const nav = document.querySelector('.glass-nav');
+      const hero = document.querySelector('#inicio');
+      function adjustHeroPadding() {
+        if (nav && hero) hero.style.paddingTop = `calc(5rem + ${nav.offsetHeight}px)`;
+      }
+      adjustHeroPadding();
+      window.addEventListener('resize', adjustHeroPadding);
+    });
+    
     const audio = new Audio('Music.mp3');
     audio.loop = true;
     audio.volume = 0.3;
-	
     const playAudio = () => {
-        audio.play().catch(e => {
-            document.addEventListener('click', playAudio, { once: true });
-            document.addEventListener('touchstart', playAudio, { once: true });
-        });
+      audio.play().catch(() => {
+        document.addEventListener('click', playAudio, { once: true });
+        document.addEventListener('touchstart', playAudio, { once: true });
+      });
     };
-    
     playAudio();
-})();
+  })();
 </script>
 </body>
 </html>
