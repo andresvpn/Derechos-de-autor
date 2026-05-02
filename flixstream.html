@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>FlixStream 2026 · Descarga la app de cine y series</title>
-    <meta name="description" content="FlixStream 2026: Películas y series en HD con multicalidad, español latino, inglés y castellano. +4 servidores, experiencia fluida. Descarga APK 11.5 MB.">
-    <meta name="keywords" content="FlixStream, descargar FlixStream, APK 2026, streaming latino, películas gratis, español latino">
-    <meta name="theme-color" content="#4caf84">
-    <meta property="og:title" content="FlixStream 2026 · Calidad y velocidad">
-    <meta property="og:description" content="La mejor experiencia de streaming con servidores estables, idiomas y sin excesos. APK ligera 11.5MB.">
+    <title>FlixStream 2026 | Evolución del Streaming · Películas y Series</title>
+    <meta name="description" content="FlixStream APK: Disfruta las mejores películas y series donde quieras. Multicalidad, +4 servidores y audio en español latino. Streaming futurista.">
+    <meta name="keywords" content="FlixStream, APK streaming, películas HD, series online, Android, futurista">
+    <meta name="theme-color" content="#000000">
+    <meta property="og:title" content="FlixStream — El cine en tu mano">
+    <meta property="og:description" content="Vive la experiencia definitiva. Contenido de calidad, sin complicaciones.">
     <meta property="og:image" content="logo_blanco.PNG">
+    <meta property="og:type" content="website">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     
     <style>
@@ -24,566 +25,604 @@
 
         body {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background: #0a0c0f;
-            color: #f0f3f8;
+            background-color: #000000;
+            color: #ffffff;
             scroll-behavior: smooth;
             overflow-x: hidden;
         }
 
-        a { text-decoration: none !important; color: inherit; }
+        a {
+            text-decoration: none !important;
+            color: inherit;
+        }
 
-        /* Paleta de colores refinada: verde esmeralda con elegancia */
+        /* Paleta: Negro/Blanco + Verde futurista en fondo y detalles */
         :root {
-            --primary: #10b981;
-            --primary-dark: #059669;
-            --primary-light: #34d399;
-            --primary-glow: rgba(16, 185, 129, 0.25);
-            --bg-deep: #0a0c0f;
-            --bg-card: #11161c;
-            --bg-surface: #151e26;
-            --border-subtle: #2a353f;
-            --text-secondary: #9ca3af;
+            --neon-green: #10b981;
+            --neon-green-dark: #059669;
+            --neon-light: #34d399;
+            --dark-bg: #000000;
+            --card-dark: #0a0a0a;
+            --surface-dark: #111111;
+            --border-glow: rgba(16, 185, 129, 0.4);
+            --text-secondary: #a3a3a3;
         }
 
-        /* Animaciones fluidas */
-        @keyframes fadeUp {
-            0% { opacity: 0; transform: translateY(18px); }
-            100% { opacity: 1; transform: translateY(0); }
+        /* Fondo futurista 3D con efecto verdoso */
+        .futuristic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at 30% 10%, #052e16, #000000 80%);
+        }
+        
+        .futuristic-bg::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(45deg, rgba(16, 185, 129, 0.03) 0px, rgba(16, 185, 129, 0.03) 2px, transparent 2px, transparent 12px);
+            pointer-events: none;
+        }
+        
+        /* Partículas flotantes */
+        .particle-field {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(16, 185, 129, 0.2);
+            border-radius: 50%;
+            filter: blur(2px);
+            animation: floatParticle 18s infinite linear;
+        }
+        
+        @keyframes floatParticle {
+            0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.4; }
+            100% { transform: translateY(-20vh) translateX(40px) rotate(360deg); opacity: 0; }
         }
 
-        @keyframes scaleGlow {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 var(--primary-glow); }
-            50% { transform: scale(1.02); box-shadow: 0 0 20px 4px var(--primary-glow); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 var(--primary-glow); }
-        }
-
-        .animate-on-load {
-            animation: fadeUp 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
-            opacity: 0;
-        }
-
-        /* Header minimalista sin botón sobrante */
+        /* Header minimalista */
         .top-bar {
-            background: rgba(10, 12, 15, 0.92);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(16, 185, 129, 0.25);
-            padding: 16px 24px;
-            text-align: center;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(16, 185, 129, 0.3);
             position: sticky;
             top: 0;
             z-index: 100;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .app-logo {
-            font-size: 1.9rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #ffffff, #e5e5e5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
-
-        .app-logo span:first-child {
-            background: linear-gradient(135deg, #ffffff, #d1d5db);
+        
+        .app-logo span {
+            background: linear-gradient(135deg, #ffffff, var(--neon-green));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
 
-        .app-logo span:last-child {
-            background: linear-gradient(135deg, var(--primary-light), var(--primary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 12px var(--primary-glow);
-        }
-
-        /* Hero principal - sin groserías, elegancia */
-        .hero {
-            padding: 48px 24px 36px;
+        /* Hero futurista */
+        .hero-section {
+            padding: 60px 20px 50px;
             text-align: center;
-            background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(16,185,129,0.08), transparent 75%);
+            position: relative;
         }
 
-        .badge-year {
+        .badge-hologram {
             display: inline-flex;
             align-items: center;
             gap: 8px;
             background: rgba(16, 185, 129, 0.12);
-            border: 1px solid rgba(16, 185, 129, 0.4);
-            border-radius: 60px;
-            padding: 6px 20px;
-            font-size: 0.75rem;
+            border: 1px solid var(--neon-green);
+            border-radius: 100px;
+            padding: 5px 20px;
+            font-size: 12px;
             font-weight: 600;
-            color: var(--primary-light);
-            margin-bottom: 28px;
+            color: var(--neon-light);
             backdrop-filter: blur(4px);
+            margin-bottom: 32px;
+            letter-spacing: 0.5px;
         }
 
         .hero-title {
-            font-size: 3.8rem;
-            font-weight: 800;
-            letter-spacing: -1.5px;
-            line-height: 1.1;
-            background: linear-gradient(135deg, #ffffff, #b0f0d0, var(--primary-light), #10b981);
-            background-size: 250% auto;
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, #ffffff, #c0c0c0, var(--neon-green));
+            background-size: 200% auto;
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            animation: shimmerText 6s infinite alternate;
+            animation: titleShimmer 5s ease infinite;
             margin-bottom: 20px;
         }
 
-        @keyframes shimmerText {
-            0% { background-position: 0% 30%; }
-            100% { background-position: 100% 70%; }
+        @keyframes titleShimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* SLOGAN MOTIVADOR - Texto inspirador */
+        .motivational-slogan {
+            max-width: 700px;
+            margin: 0 auto 24px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            line-height: 1.4;
+            background: rgba(255,255,255,0.03);
+            padding: 12px 20px;
+            border-radius: 60px;
+            display: inline-block;
+            backdrop-filter: blur(8px);
+            border: 0.5px solid rgba(16, 185, 129, 0.2);
+            color: #dddddd;
+        }
+        
+        .motivational-slogan i {
+            color: var(--neon-green);
+            margin: 0 6px;
         }
 
         .hero-desc {
-            font-size: 1.1rem;
             color: var(--text-secondary);
             max-width: 620px;
             margin: 0 auto 24px;
+            font-size: 1rem;
+            font-weight: 400;
         }
 
-        .lang-badge {
+        .lang-strip {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 12px;
-            margin-bottom: 32px;
+            gap: 18px;
+            margin-bottom: 42px;
+            flex-wrap: wrap;
         }
-
-        .lang-item {
-            background: rgba(21, 30, 38, 0.7);
-            border-radius: 100px;
-            padding: 6px 16px;
+        
+        .lang-badge {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            border: 0.5px solid rgba(16, 185, 129, 0.4);
+            border-radius: 40px;
+            padding: 6px 20px;
             font-size: 0.75rem;
             font-weight: 500;
-            border: 1px solid var(--border-subtle);
-            backdrop-filter: blur(4px);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
+        .lang-badge i { color: var(--neon-green); }
 
-        .lang-item i {
-            color: var(--primary);
-            margin-right: 6px;
-        }
-
-        /* ÚNICO BOTÓN DE DESCARGA ELEGANTE */
-        .btn-download-single {
-            background: linear-gradient(105deg, var(--primary), var(--primary-dark));
+        /* Botón principal - contundente */
+        .btn-download-futuristic {
+            background: linear-gradient(95deg, #10b981, #047857);
             border: none;
             border-radius: 80px;
-            padding: 16px 42px;
-            font-size: 1.35rem;
-            font-weight: 700;
-            color: white;
+            padding: 16px 44px;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #000000;
             display: inline-flex;
             align-items: center;
             gap: 14px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 12px 30px -8px rgba(16, 185, 129, 0.5);
+            transition: all 0.25s ease;
+            box-shadow: 0 0 18px rgba(16, 185, 129, 0.5);
             margin-bottom: 18px;
-            animation: scaleGlow 2s infinite ease-in-out;
+        }
+        
+        .btn-download-futuristic:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 0 32px rgba(16, 185, 129, 0.8);
+            background: linear-gradient(95deg, #2ecc71, #10b981);
         }
 
-        .btn-download-single:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 35px -10px rgba(16, 185, 129, 0.7);
-            background: linear-gradient(105deg, #2ecc71, #10b981);
-        }
-
-        .apk-info {
-            font-size: 0.75rem;
-            color: #6c7983;
+        .apk-details {
             display: flex;
             justify-content: center;
-            gap: 24px;
+            gap: 28px;
             flex-wrap: wrap;
+            font-size: 0.7rem;
+            color: #7a7a7a;
         }
+        .apk-details i { color: var(--neon-green); margin-right: 6px; }
 
-        .apk-info span i {
-            color: var(--primary);
-            margin-right: 4px;
+        /* Feature chips después del eslogan - más técnico */
+        .feature-chips {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin: 32px auto 20px;
+            max-width: 700px;
         }
+        
+        .chip-future {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 40px;
+            padding: 8px 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .chip-future i { color: var(--neon-green); }
 
-        /* Subtle ad: no ordinario, con estilo */
-        .subtle-message {
-            background: rgba(16, 185, 129, 0.06);
-            border-radius: 60px;
-            margin: 28px auto 0;
-            padding: 8px 22px;
+        /* Mensaje de publicidad elegante */
+        .ad-message-elegant {
+            background: rgba(16, 185, 129, 0.05);
+            border-radius: 40px;
+            padding: 8px 24px;
             display: inline-flex;
             align-items: center;
             gap: 12px;
+            margin-top: 28px;
             font-size: 0.7rem;
-            color: #9ca3af;
-            border: 0.5px solid rgba(16, 185, 129, 0.2);
+            border: 0.5px solid rgba(16, 185, 129, 0.3);
             backdrop-filter: blur(4px);
+            color: var(--neon-light);
         }
 
-        /* Swiper y cards */
+        /* Sliders */
         .section-title {
             font-size: 1.6rem;
             font-weight: 700;
-            border-left: 4px solid var(--primary);
+            border-left: 4px solid var(--neon-green);
             padding-left: 20px;
-            margin: 48px 24px 20px;
+            margin: 48px 24px 24px;
+            text-shadow: 0 0 5px rgba(16, 185, 129, 0.3);
         }
-
+        
         .swiper-container {
-            padding: 0 16px 30px;
+            padding: 0 16px 32px;
         }
-
+        
         .movie-card {
-            background: var(--bg-card);
+            background: var(--card-dark);
             border-radius: 24px;
             overflow: hidden;
-            border: 1px solid var(--border-subtle);
+            border: 1px solid #222;
             transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
         }
-
+        
         .movie-card:hover {
             transform: translateY(-8px) scale(1.02);
-            border-color: var(--primary);
-            box-shadow: 0 20px 32px -12px rgba(0,0,0,0.6);
+            border-color: var(--neon-green);
+            box-shadow: 0 20px 32px -8px rgba(16, 185, 129, 0.3);
         }
-
+        
         .movie-poster {
             width: 100%;
             aspect-ratio: 2 / 3;
             object-fit: cover;
             display: block;
         }
-
+        
         .movie-info {
-            padding: 12px;
+            padding: 14px;
         }
-
+        
         .movie-title {
             font-weight: 700;
             font-size: 0.85rem;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            color: #fff;
         }
-
+        
         .movie-year {
             font-size: 0.7rem;
             color: var(--text-secondary);
+            margin-top: 5px;
         }
 
-        /* Instrucciones elegantes */
-        .instructions {
-            background: rgba(17, 22, 28, 0.7);
-            backdrop-filter: blur(12px);
-            border-radius: 40px;
-            margin: 40px 24px 48px;
-            padding: 32px 28px;
-            border: 1px solid rgba(16, 185, 129, 0.25);
+        /* Guía de instalación futurista */
+        .install-guide {
+            max-width: 780px;
+            margin: 40px auto 50px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(16px);
+            border-radius: 48px;
+            padding: 32px 36px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
-
-        .instructions-title {
+        
+        .guide-header {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
+            font-weight: 800;
             font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 28px;
+            margin-bottom: 32px;
         }
-
-        .instructions-title i {
-            color: var(--primary);
-            font-size: 28px;
-        }
-
-        .step-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 28px;
-        }
-
-        .step {
+        .guide-header i { color: var(--neon-green); font-size: 2rem; }
+        
+        .step-row {
             display: flex;
             gap: 20px;
-            align-items: flex-start;
+            margin-bottom: 28px;
         }
-
-        .step-num {
-            width: 44px;
-            height: 44px;
-            background: rgba(16, 185, 129, 0.12);
-            border-radius: 30px;
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: rgba(16, 185, 129, 0.15);
+            border-radius: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 800;
-            font-size: 1.2rem;
-            color: var(--primary);
-            border: 1px solid rgba(16, 185, 129, 0.5);
+            font-size: 1.1rem;
+            color: var(--neon-green);
+            border: 1px solid var(--neon-green);
             flex-shrink: 0;
         }
-
-        .step-text h4 {
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-
-        .step-text p {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            line-height: 1.4;
-        }
-
-        .warning-note {
-            background: rgba(16, 185, 129, 0.05);
-            border-radius: 24px;
-            padding: 16px 20px;
-            margin-top: 28px;
-            border-left: 3px solid var(--primary);
-            font-size: 0.8rem;
-        }
-
-        footer {
+        .step-text h4 { font-weight: 700; margin-bottom: 6px; }
+        .step-text p { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.45; }
+        
+        .legal-note {
             text-align: center;
-            padding: 28px 20px;
-            border-top: 1px solid rgba(255,255,255,0.05);
             font-size: 0.7rem;
-            color: #6c7983;
+            color: #6e6e6e;
+            background: rgba(0,0,0,0.4);
+            padding: 24px;
+            border-top: 1px solid rgba(16,185,129,0.2);
+        }
+        .footer-copyright {
+            text-align: center;
+            padding: 24px;
+            font-size: 0.7rem;
+            color: #5a5a5a;
         }
 
-        /* animaciones extra para Android fluido */
-        @keyframes softPulse {
-            0% { opacity: 0.6; }
-            100% { opacity: 1; }
-        }
-
-        .movie-card, .btn-download-single {
-            will-change: transform;
-        }
-
-        @media (max-width: 600px) {
-            .hero-title { font-size: 2.2rem; }
-            .btn-download-single { padding: 12px 32px; font-size: 1.1rem; }
+        @media (max-width: 650px) {
+            .hero-title { font-size: 2.4rem; }
+            .btn-download-futuristic { padding: 12px 28px; font-size: 1rem; }
+            .install-guide { margin: 30px 16px; padding: 24px 20px; }
             .section-title { font-size: 1.3rem; margin: 32px 16px 16px; }
-            .instructions { margin: 30px 16px; padding: 24px 20px; }
-            .step-num { width: 38px; height: 38px; font-size: 1rem; }
+            .motivational-slogan { font-size: 0.95rem; padding: 8px 16px; }
         }
-
+        
         .skeleton-poster {
-            background: linear-gradient(110deg, #1a222a 8%, #232e38 18%, #1a222a 33%);
+            background: linear-gradient(110deg, #181818 8%, #242424 18%, #181818 33%);
             border-radius: 20px;
             aspect-ratio: 2/3;
-            background-size: 200% 100%;
-            animation: shimmerLoad 1.3s infinite;
+            animation: skeletonMove 1.2s infinite;
         }
-
-        @keyframes shimmerLoad {
+        @keyframes skeletonMove {
             0% { background-position: -200% 0; }
             100% { background-position: 200% 0; }
         }
-
-        .swiper-pagination-bullet-active {
-            background: var(--primary) !important;
-        }
+        .swiper-pagination-bullet-active { background: var(--neon-green) !important; }
     </style>
 </head>
 <body>
 
-<!-- Header solo con logo (sin botón innecesario) -->
-<div class="top-bar">
-    <div class="app-logo">
-        <span>FLIX</span><span>STREAM</span>
-    </div>
-</div>
+<div class="futuristic-bg"></div>
+<div class="particle-field" id="particles"></div>
 
-<!-- Hero principal -->
-<div class="hero animate-on-load" style="animation-delay: 0.05s;">
-    <div class="badge-year">
-        <i class="fas fa-certificate"></i> EDICIÓN 2026 · NUEVA GENERACIÓN
-    </div>
-    <h1 class="hero-title">Cinema sin límites<br>en tu bolsillo</h1>
-    <p class="hero-desc">
-        Multicalidad, +4 servidores, y una experiencia fluida con publicidad respetuosa.<br>
-        Elige tu idioma y disfruta.
-    </p>
-    <div class="lang-badge">
-        <span class="lang-item"><i class="fas fa-language"></i> Español (Latino)</span>
-        <span class="lang-item"><i class="fas fa-language"></i> Inglés</span>
-        <span class="lang-item"><i class="fas fa-language"></i> Castellano</span>
-    </div>
+<header class="top-bar">
+    <div class="app-logo">FLIX<span>STREAM</span></div>
+</header>
 
-    <!-- ÚNICO BOTÓN DE DESCARGA (sin redundancias) -->
-    <button id="downloadMainBtn" class="btn-download-single">
-        <i class="fas fa-download"></i> Descargar APK 11.5 MB
-    </button>
-    <div class="apk-info">
-        <span><i class="fas fa-android"></i> Android 6.0+</span>
-        <span><i class="fas fa-weight-hanging"></i> 11.5 MB (ligera)</span>
-        <span><i class="fas fa-code-branch"></i> Versión 1.0.0 stable</span>
-        <span><i class="fas fa-calendar-alt"></i> 2026</span>
-    </div>
-    <div class="subtle-message">
-        <i class="fas fa-ad"></i>
-        <span>Anuncios sutiles en transiciones · Respetamos tu atención</span>
-        <i class="fas fa-heart" style="color: var(--primary);"></i>
-    </div>
-</div>
-
-<!-- Slider de películas populares (TMDB) -->
-<h2 class="section-title"><i class="fas fa-fire" style="color: var(--primary); margin-right: 12px;"></i> Tendencias 2026</h2>
-<div class="swiper moviesSwiper swiper-container">
-    <div class="swiper-wrapper" id="moviesContainer">
-        <div class="swiper-slide"><div class="skeleton-poster"></div></div>
-        <div class="swiper-slide"><div class="skeleton-poster"></div></div>
-        <div class="swiper-slide"><div class="skeleton-poster"></div></div>
-    </div>
-    <div class="swiper-pagination movies-pagination"></div>
-</div>
-
-<!-- Slider de series -->
-<h2 class="section-title"><i class="fas fa-award" style="color: var(--primary); margin-right: 12px;"></i> Series más aclamadas</h2>
-<div class="swiper seriesSwiper swiper-container">
-    <div class="swiper-wrapper" id="seriesContainer">
-        <div class="swiper-slide"><div class="skeleton-poster"></div></div>
-        <div class="swiper-slide"><div class="skeleton-poster"></div></div>
-    </div>
-    <div class="swiper-pagination series-pagination"></div>
-</div>
-
-<!-- Instrucciones con estilo (fluido para Android) -->
-<div class="instructions animate-on-load" style="animation-delay: 0.1s;">
-    <div class="instructions-title">
-        <i class="fab fa-android"></i>
-        <span>Instalación rápida en Android</span>
-    </div>
-    <div class="step-grid">
-        <div class="step">
-            <div class="step-num">1</div>
-            <div class="step-text">
-                <h4>Descarga el archivo .apk</h4>
-                <p>Toca el botón superior "Descargar APK 11.5 MB" — el archivo se guardará automáticamente en tu dispositivo.</p>
-            </div>
+<main>
+    <div class="hero-section">
+        <div class="badge-hologram">
+            <i class="fas fa-microchip"></i> 2026 EDITION · NEXT GEN
         </div>
-        <div class="step">
-            <div class="step-num">2</div>
-            <div class="step-text">
-                <h4>Permite instalación externa</h4>
-                <p>Al abrir el APK, Android te pedirá habilitar "Fuentes desconocidas". Actívalo desde Ajustes → Seguridad o desde el mismo diálogo.</p>
-            </div>
+        <h1 class="hero-title">Evolución del<br>streaming</h1>
+        
+        <!-- SLOGAN MOTIVADOR -->
+        <div class="motivational-slogan">
+            <i class="fas fa-quote-left"></i> Las mejores películas y series, en la comodidad de tu mano. 
+            Donde quieras, cuando quieras. <i class="fas fa-quote-right"></i>
         </div>
-        <div class="step">
-            <div class="step-num">3</div>
-            <div class="step-text">
-                <h4>Instala y lanza FlixStream</h4>
-                <p>Presiona "Instalar" y en segundos tendrás la app. Elige tu idioma favorito (Español Latino, Inglés o Castellano) y empieza a ver contenido en ultra fluidez.</p>
-            </div>
+        
+        <p class="hero-desc">
+            Tecnología de punta para que vivas cada historia sin límites. Velocidad, estabilidad y contenido ilimitado.
+        </p>
+        
+        <!-- CHIPS TÉCNICOS después del eslogan motivador -->
+        <div class="feature-chips">
+            <span class="chip-future"><i class="fas fa-chart-line"></i> Multicalidad dinámica</span>
+            <span class="chip-future"><i class="fas fa-server"></i> +4 Servidores redundantes</span>
+            <span class="chip-future"><i class="fas fa-language"></i> 3 Idiomas (Latino, Inglés, Castellano)</span>
+            <span class="chip-future"><i class="fas fa-bolt"></i> Reproducción ultra rápida</span>
+        </div>
+        
+        <div class="lang-strip">
+            <span class="lang-badge"><i class="fas fa-globe-americas"></i> Español Latino</span>
+            <span class="lang-badge"><i class="fas fa-globe-europe"></i> Inglés</span>
+            <span class="lang-badge"><i class="fas fa-language"></i> Castellano</span>
+        </div>
+
+        <!-- Botón único descarga -->
+        <button id="downloadBtnPrimary" class="btn-download-futuristic">
+            <i class="fas fa-bolt"></i> DESCARGAR APK 11.5 MB
+        </button>
+        <div class="apk-details">
+            <span><i class="fab fa-android"></i> Android 6.0+</span>
+            <span><i class="fas fa-code-branch"></i> v1.0.0 · 2026</span>
+            <span><i class="fas fa-weight-hanging"></i> Ligera · 11.5 MB</span>
+        </div>
+        
+        <div class="ad-message-elegant">
+            <i class="fas fa-chart-simple"></i>
+            <span>Anuncios en transiciones · Experiencia cuidada y no intrusiva</span>
+            <i class="fas fa-circle-check"></i>
         </div>
     </div>
-    <div class="warning-note">
-        <i class="fas fa-shield-alt" style="color: var(--primary); margin-right: 12px;"></i>
-        <strong>APK oficial verificada:</strong> Creada para ofrecer la mejor experiencia con servidores redundantes +4, sin publicidad invasiva. Liviana y rápida.
-    </div>
-</div>
 
-<footer>
-    <p>FlixStream 2026 — tecnología de streaming eficiente. Contenido actualizado mediante The Movie Database (TMDB).</p>
-    <p style="margin-top: 10px;">Todos los derechos reservados · Versión 1.0.0 · Construida con pasión para Latinoamérica.</p>
-</footer>
+    <!-- Sliders TMDB -->
+    <h2 class="section-title"><i class="fas fa-fire" style="color: #10b981; margin-right: 10px;"></i> Tendencias en cine</h2>
+    <div class="swiper moviesSwiper swiper-container">
+        <div class="swiper-wrapper" id="moviesContainer">
+            <div class="swiper-slide"><div class="skeleton-poster"></div></div>
+            <div class="swiper-slide"><div class="skeleton-poster"></div></div>
+        </div>
+        <div class="swiper-pagination movies-pagination"></div>
+    </div>
+
+    <h2 class="section-title"><i class="fas fa-trophy" style="color: #10b981; margin-right: 10px;"></i> Series más aclamadas</h2>
+    <div class="swiper seriesSwiper swiper-container">
+        <div class="swiper-wrapper" id="seriesContainer">
+            <div class="swiper-slide"><div class="skeleton-poster"></div></div>
+            <div class="swiper-slide"><div class="skeleton-poster"></div></div>
+        </div>
+        <div class="swiper-pagination series-pagination"></div>
+    </div>
+
+    <!-- Instrucciones estilo futurista -->
+    <div class="install-guide">
+        <div class="guide-header">
+            <i class="fas fa-droid"></i>
+            <span>Instalación en segundos</span>
+        </div>
+        <div class="step-row">
+            <div class="step-number">1</div>
+            <div class="step-text">
+                <h4>Descarga el APK</h4>
+                <p>Presiona el botón "DESCARGAR APK 11.5 MB". El archivo se guardará en Descargas.</p>
+            </div>
+        </div>
+        <div class="step-row">
+            <div class="step-number">2</div>
+            <div class="step-text">
+                <h4>Habilita orígenes desconocidos</h4>
+                <p>Android te pedirá permiso. Ve a Ajustes → Seguridad y activa "Fuentes desconocidas".</p>
+            </div>
+        </div>
+        <div class="step-row">
+            <div class="step-number">3</div>
+            <div class="step-text">
+                <h4>Instala y elige tu idioma</h4>
+                <p>Abre el archivo .apk, pulsa instalar y dentro de la app selecciona Español Latino, Inglés o Castellano.</p>
+            </div>
+        </div>
+        <div style="margin-top: 20px; border-left: 2px solid #10b981; padding-left: 16px;">
+            <i class="fas fa-shield-haltered" style="color: #10b981;"></i> APK verificada, sin rastreadores.
+        </div>
+    </div>
+
+    <div class="legal-note">
+        <i class="fas fa-database" style="margin-right: 8px; color: #10b981;"></i> 
+        FlixStream no almacena contenido propio. Todas las fuentes de video son proporcionadas por servidores externos y servicios de terceros. Actuamos como agregador técnico.
+    </div>
+    <footer class="footer-copyright">
+        <p>© 2026 FlixStream · Streaming de nueva generación · Datos por TMDB</p>
+    </footer>
+</main>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-    // TMDB API KEY proporcionada por el usuario
+    // TMDB config
     const TMDB_API_KEY = 'e416234abcb5d260538a8f7ce6ba12e4';
-    const IMAGE_BASE = 'https://image.tmdb.org/t/p/w342';
-
-    // Función única de descarga con ruta ./Flixstream.apk
+    const IMG_URL = 'https://image.tmdb.org/t/p/w342';
+    
+    // Descarga APK
     function downloadApk() {
-        const apkUrl = './Flixstream.apk';
+        const apkPath = './Flixstream.apk';
         const link = document.createElement('a');
-        link.href = apkUrl;
+        link.href = apkPath;
         link.download = 'Flixstream.apk';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        
-        // Notificación sutil y elegante
-        showFloatingMessage('📱 Descarga iniciada: Flixstream.apk (11.5 MB)', '#10b981');
+        showFloatingToast("Descarga iniciada: Flixstream.apk (11.5 MB)");
     }
-
-    function showFloatingMessage(msg, color) {
-        let toast = document.getElementById('elegant-toast');
+    
+    function showFloatingToast(msg) {
+        let toast = document.getElementById('toast-futuristic');
         if (!toast) {
             toast = document.createElement('div');
-            toast.id = 'elegant-toast';
+            toast.id = 'toast-futuristic';
             toast.style.position = 'fixed';
             toast.style.bottom = '30px';
             toast.style.left = '50%';
             toast.style.transform = 'translateX(-50%)';
-            toast.style.backgroundColor = '#1e2936';
+            toast.style.backgroundColor = '#0f0f0f';
             toast.style.backdropFilter = 'blur(16px)';
-            toast.style.color = '#f0f3f8';
-            toast.style.padding = '10px 24px';
+            toast.style.color = '#10b981';
+            toast.style.padding = '10px 28px';
             toast.style.borderRadius = '40px';
             toast.style.fontSize = '0.8rem';
             toast.style.fontWeight = '500';
-            toast.style.borderLeft = `3px solid ${color}`;
+            toast.style.border = '1px solid #10b981';
             toast.style.zIndex = '9999';
-            toast.style.boxShadow = '0 8px 20px rgba(0,0,0,0.3)';
+            toast.style.boxShadow = '0 0 18px rgba(16,185,129,0.3)';
             toast.style.opacity = '0';
-            toast.style.transition = 'opacity 0.2s ease';
+            toast.style.transition = 'opacity 0.2s';
             document.body.appendChild(toast);
         }
         toast.textContent = msg;
         toast.style.opacity = '1';
         setTimeout(() => { toast.style.opacity = '0'; }, 2800);
     }
-
-    const downloadBtn = document.getElementById('downloadMainBtn');
-    if (downloadBtn) downloadBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        downloadApk();
-    });
-
-    // ============= TMDB =============
+    
+    const downloadPrimary = document.getElementById('downloadBtnPrimary');
+    if (downloadPrimary) downloadPrimary.addEventListener('click', (e) => { e.preventDefault(); downloadApk(); });
+    
+    // TMDB Functions
     async function fetchData(endpoint) {
         try {
             const res = await fetch(`https://api.themoviedb.org/3/${endpoint}?api_key=${TMDB_API_KEY}&language=es-ES&page=1`);
-            const data = await res.json();
-            return data.results || [];
-        } catch (err) {
-            console.warn(err);
-            return [];
-        }
+            const json = await res.json();
+            return json.results || [];
+        } catch (err) { return []; }
     }
-
+    
     function createCard(item, type = 'movie') {
         const title = type === 'movie' ? item.title : item.name;
-        const release = type === 'movie' ? item.release_date : item.first_air_date;
-        const year = release ? release.split('-')[0] : '2026';
-        const poster = item.poster_path ? IMAGE_BASE + item.poster_path : 'https://placehold.co/342x513?text=Sin+poster';
-        const rating = item.vote_average ? item.vote_average.toFixed(1) : 'N/A';
+        const date = type === 'movie' ? item.release_date : item.first_air_date;
+        const year = date ? date.split('-')[0] : '2026';
+        const poster = item.poster_path ? IMG_URL + item.poster_path : '';
+        const finalPoster = poster || 'https://placehold.co/342x513?text=No+Poster';
+        const vote = item.vote_average ? item.vote_average.toFixed(1) : '—';
         const div = document.createElement('div');
         div.className = 'swiper-slide';
         div.innerHTML = `
             <div class="movie-card">
-                <img class="movie-poster" src="${poster}" alt="${escapeHtml(title)}" loading="lazy">
+                <img class="movie-poster" src="${finalPoster}" alt="${escapeHtml(title)}" loading="lazy">
                 <div class="movie-info">
-                    <div class="movie-title">${title.length > 28 ? title.substring(0,25)+'…' : title}</div>
-                    <div class="movie-year">${year} · <i class="fas fa-star" style="color:#f5b042; font-size:10px;"></i> ${rating}</div>
+                    <div class="movie-title">${escapeHtml(title).substring(0, 32)}</div>
+                    <div class="movie-year">${year} · <i class="fas fa-star" style="color:#f5b042; font-size:9px;"></i> ${vote}</div>
                 </div>
             </div>
         `;
         return div;
     }
-
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m] || m));
-    }
-
+    
+    function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); }
+    
     async function loadMovies() {
         const container = document.getElementById('moviesContainer');
         if (!container) return;
@@ -591,9 +630,9 @@
         const movies = await fetchData('movie/popular');
         container.innerHTML = '';
         movies.slice(0, 15).forEach(m => container.appendChild(createCard(m, 'movie')));
-        initSwiper('.moviesSwiper');
+        initSwipers('.moviesSwiper');
     }
-
+    
     async function loadSeries() {
         const container = document.getElementById('seriesContainer');
         if (!container) return;
@@ -601,40 +640,52 @@
         const series = await fetchData('tv/popular');
         container.innerHTML = '';
         series.slice(0, 15).forEach(s => container.appendChild(createCard(s, 'tv')));
-        initSwiper('.seriesSwiper');
+        initSwipers('.seriesSwiper');
     }
-
-    let moviesSwiper, seriesSwiper;
-    function initSwiper(selector) {
+    
+    let swiperMovies, swiperSeries;
+    function initSwipers(selector) {
         if (selector === '.moviesSwiper') {
-            if (moviesSwiper) moviesSwiper.destroy(true, true);
-            moviesSwiper = new Swiper('.moviesSwiper', {
-                slidesPerView: 2.2,
-                spaceBetween: 14,
+            if (swiperMovies) swiperMovies.destroy(true, true);
+            swiperMovies = new Swiper('.moviesSwiper', {
+                slidesPerView: 2.2, spaceBetween: 14,
                 pagination: { el: '.movies-pagination', clickable: true, dynamicBullets: true },
                 breakpoints: { 480: { slidesPerView: 2.5 }, 640: { slidesPerView: 3.2 }, 768: { slidesPerView: 4 }, 1024: { slidesPerView: 5.2 } },
                 grabCursor: true,
             });
         } else {
-            if (seriesSwiper) seriesSwiper.destroy(true, true);
-            seriesSwiper = new Swiper('.seriesSwiper', {
-                slidesPerView: 2.2,
-                spaceBetween: 14,
+            if (swiperSeries) swiperSeries.destroy(true, true);
+            swiperSeries = new Swiper('.seriesSwiper', {
+                slidesPerView: 2.2, spaceBetween: 14,
                 pagination: { el: '.series-pagination', clickable: true, dynamicBullets: true },
                 breakpoints: { 480: { slidesPerView: 2.5 }, 640: { slidesPerView: 3.2 }, 768: { slidesPerView: 4 }, 1024: { slidesPerView: 5.2 } },
                 grabCursor: true,
             });
         }
     }
-
+    
     loadMovies();
     loadSeries();
-
-    // Pequeño feedback al hacer clic en cards (sin exagerar)
+    
+    // Partículas dinámicas
+    const particlesContainer = document.getElementById('particles');
+    for (let i = 0; i < 55; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        const size = Math.random() * 6 + 2;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.animationDuration = `${Math.random() * 15 + 8}s`;
+        particle.style.animationDelay = `${Math.random() * 10}s`;
+        particle.style.opacity = Math.random() * 0.4;
+        particlesContainer.appendChild(particle);
+    }
+    
     document.addEventListener('click', (e) => {
         const card = e.target.closest('.movie-card');
-        if (card && !e.target.closest('.btn-download-single')) {
-            showFloatingMessage(' Descarga FlixStream para ver este contenido', '#34d399');
+        if (card && !e.target.closest('.btn-download-futuristic')) {
+            showFloatingToast("Instala FlixStream para ver este contenido completo");
         }
     });
 </script>
